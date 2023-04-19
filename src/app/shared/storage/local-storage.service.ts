@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const APP_PREFIX = 'DIB365-';
+const APP_PREFIX = 'GITHUB-';
 
 @Injectable({
   providedIn: 'root'

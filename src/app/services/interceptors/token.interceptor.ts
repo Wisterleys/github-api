@@ -21,12 +21,12 @@ export class TokenInterceptor implements HttpInterceptor {
     const apiUrl: Array<any> = environment.apiUrl.split("/");
     if (token && requestURL[2] === apiUrl[2]) {
       const newRequest = request.clone({
-        setHeaders: { Authorization: `Bearer ${token}`, app: app }
+        setHeaders: { Authorization: `Bearer ${token}`, app: app,}
       });
       return next.handle(newRequest);
     } else {
       const newRequest = request.clone({
-        setHeaders: { app: app }
+        setHeaders: {  }
       });
       return next.handle(newRequest);
     }
