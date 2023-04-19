@@ -8,7 +8,7 @@
   flex-wrap: wrap;
   .input-group{
     display: flex;
-    border: 1px solid gray;
+    border: 1px solid var(---border-color);
     height: 1.5rem;
     width: 35rem;
     padding-left: 10px;
@@ -19,6 +19,9 @@
       border: none;
       outline: none;
       
+    }
+    .search-icon{
+      color: var(---icon-search-color);
     }
     
   }
