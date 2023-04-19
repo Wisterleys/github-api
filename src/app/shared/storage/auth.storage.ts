@@ -1,4 +1,4 @@
-import { User } from 'src/app/models/user.model';
+import { UserModel } from 'src/app/models/user.model';
 import { CryptographyUtil } from 'src/app/utils/cryptography/cryptography.util';
 
 
@@ -7,7 +7,7 @@ export class AuthStorage {
   private static userStorageKey = 'key.user';
   private static tokenStorageKey = 'key.token';
 
-  public static setUser(user: User) {
+  public static setUser(user: UserModel) {
     localStorage.setItem(this.userStorageKey, CryptographyUtil.encrypt(user));
   }
   
