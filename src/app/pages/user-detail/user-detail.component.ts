@@ -23,6 +23,10 @@ export class UserDetailComponent implements OnInit{
       console.log(this.githubService.repos);
     
   }
+  onGetWords(value:string){
+   console.log(value)
+    
+  }
 
   get user():UserModel {
     return this.githubService.user as UserModel;

@@ -3,9 +3,9 @@
         <div class="search-icon">
             <mat-icon>search</mat-icon>
         </div>
-        <input type="text" placeholder="Search" [(ngModel)]="searchValueInput"/>
+        <input type="text" placeholder="Search" [(ngModel)]="searchValueInput" (input)="valueInputData()"/>
     </div>
-    <button mat-raised-button color="primary" class="custom-button" (click)="onGetWords()" *ngIf="!isLoading">Search</button>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <button mat-raised-button color="primary" class="custom-button" (click)="onGetWords()" *ngIf="!isLoading&&hasButton">Search</button>
+    <mat-spinner *ngIf="isLoading&&hasButton"></mat-spinner>
 
 </div>

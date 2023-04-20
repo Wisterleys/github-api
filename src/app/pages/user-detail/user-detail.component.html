@@ -1,5 +1,20 @@
 <div class="container">
-    <header>Header</header>
+    <header>
+        <section>
+            <span>
+                Search
+            </span>
+            <span>
+                d_evs
+            </span>
+        </section>
+        <section>
+            <app-input-search (words)="onGetWords($event)" [hasButton]="false"></app-input-search>
+        </section>
+        <section>
+
+        </section>
+    </header>
     <nav class="sidebar">Sidebar</nav>
     <main>Main Content</main>
 </div>
