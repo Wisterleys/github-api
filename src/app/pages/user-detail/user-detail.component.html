@@ -1,6 +1,6 @@
 <div class="container">
     <header>
-        <section>
+        <section routerLink="/" class="logo">
             <span>
                 Search
             </span>
@@ -12,7 +12,7 @@
             <app-input-search (words)="onGetWords($event)" [hasButton]="false"></app-input-search>
         </section>
         <section>
-
+            
         </section>
     </header>
     <nav class="sidebar">
@@ -20,24 +20,56 @@
             <mat-card-content>
                 <section class="profile">
                     <div>
-                        <img [src]="user.avatar_url" >
+                        <img *ngIf="user.avatar_url" [src]="user.avatar_url" >
                     </div>
                     <div class="name">
-                        <p>
+                        <b>
                             {{user.name}}
-                        </p>
-                        <p>
-                           Descrição...
-                        </p>
+                        </b>
+                        <div class="profile-login">
+                            {{login}}
+                        </div>
                     </div>
                     
 
                 </section>
                 <section class="desc">
-
+                   <p>
+                    {{user.bio??''}}
+                   </p>
                 </section>
                 <section class="links">
+                    <ul>
+                        <li *ngIf="user.followers">
+                            <img [src]="flowers" alt="">
+                            {{user.followers}} seguidores
+                        </li>
+                        <li *ngIf="user.following">
+                            <img [src]="heart" alt="">
+                            {{user.following}} seguindo
+                        </li>
+                        <li *ngIf="user.company" >
+                            <img [src]="office" alt="">
+                            {{user.company}}
+                        </li>
+                        <li *ngIf="user.email">
+                            <img [src]="email" alt="">
+                            {{user.email}}
+                        </li>
+                        <li *ngIf="user.blog" style="cursor: pointer;" >
+                            <mat-icon class="material-icons">share</mat-icon>
 
+                            <span (click)="openBlog(user.blog)">{{' '+user.blog}}</span>
+                        </li>
+                        <li *ngIf="user.twitter_username"  style="cursor: pointer;">
+                            <img [src]="twitter" alt="">
+                            <span (click)="openTwitter(user.twitter_username)">
+
+                                @{{user.twitter_username}}
+                            </span>
+                        </li>
+                        
+                    </ul>
                 </section>
             </mat-card-content>
         </mat-card>

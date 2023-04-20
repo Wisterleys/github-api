@@ -1,4 +1,5 @@
 .container {
+  
     width: 100%;
     height: 100vh;
     display: grid;
@@ -11,6 +12,9 @@
       text-decoration: none;
       color:black
 
+    }
+    .logo{
+      cursor: pointer;
     }
   }
     header {
@@ -38,12 +42,11 @@
           margin-left: 20px;
           border-color: var(---border-dark-color);
         }
+        
     }
 
     .sidebar {
-      
-        grid-area: sidebar;
-        
+        grid-area: sidebar; 
         
     }
 
@@ -110,10 +113,9 @@
    
   }
   
-  //Profile card
+  // card
   mat-card-content{
     width: 100%;
-    height: 50vh;
     display: grid;
     grid-template-areas:
         "p p p"
@@ -133,13 +135,20 @@
       align-items: center; 
       img {
         width: 100%;
+        max-width: 70px;
         height: auto;
+        border-radius: 180px;
+        object-fit: contain;
+        object-position: top;
       }
       .name{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: start;
+      }
+      .profile-login{
+        color: var(---login-word-color);
       }
     }
     
@@ -154,6 +163,14 @@
       max-width: 90%;
       grid-area: links;
       grid-row: 3 / -1;
+      ul{
+        list-style: none;
+        padding: 0;
+        li{
+          overflow-wrap: break-word;
+          margin-top: 10px;
+        }
+      }
     }
   }
   

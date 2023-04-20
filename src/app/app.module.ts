@@ -20,6 +20,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { UserDetailComponent } from './pages/user-detail/user-detail.component';
 import { InputSearchComponent } from './components/input-search/input-search.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,13 +42,14 @@ import { InputSearchComponent } from './components/input-search/input-search.com
     FormsModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    
   ],
  
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000,panelClass: ['danger-snackbar']}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000,panelClass: ['danger-snackbar']}},
   ],
   bootstrap: [AppComponent]
 })

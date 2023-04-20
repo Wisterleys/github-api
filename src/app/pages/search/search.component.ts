@@ -10,6 +10,7 @@ import { GitHubService } from 'src/app/services/github.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
+  
   isLoading:boolean=false;
   
   constructor(
