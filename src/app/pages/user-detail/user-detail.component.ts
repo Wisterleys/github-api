@@ -60,6 +60,7 @@ export class UserDetailComponent implements OnInit{
           
         },
         error:(err:any)=>{
+          console.log(err);
           this.openSnackbar(`Ops! usuário ${value} não encontrado`);
           
         }

@@ -34,6 +34,7 @@ export class SearchComponent {
       },
       error:(err:any)=>{
         this.openSnackbar(`Ops! usuário ${value} não encontrado`);
+        console.log(err);
         this.isLoading=false;
       }
 
