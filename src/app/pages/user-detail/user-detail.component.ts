@@ -1,5 +1,7 @@
 import { Component, OnInit} from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { RepoModel } from 'src/app/models/repo.model';
 import { UserModel } from 'src/app/models/user.model';
 import { GitHubService } from 'src/app/services/github.service';
@@ -12,6 +14,7 @@ import { ImagePaths } from 'src/app/utils/image_paths';
 })
 export class UserDetailComponent implements OnInit{
  
+  public isSearch:boolean =false;
   public login:string ='';
   public twitter:string = '';//icon
   public office:string = '';//icon
@@ -19,9 +22,11 @@ export class UserDetailComponent implements OnInit{
   public heart:string = '';//icon
   public map:string = '';//icon
   public email:string = '';//icon
+  public star:string = '';//icon
   constructor(
     public githubService:GitHubService,
     private router:Router,
+    private snackBar: MatSnackBar,
   ){
     this.twitter= ImagePaths.twitter_icon;
     this.office= ImagePaths.office_work;
@@ -29,18 +34,42 @@ export class UserDetailComponent implements OnInit{
     this.flowers= ImagePaths.group;
     this.map= ImagePaths.map_pointer;
     this.email= ImagePaths.email;
+    this.star= ImagePaths.star;
   }
 
   ngOnInit(){
     if(this.githubService.repos==undefined||this.githubService.user==undefined)
       this.router.navigate(['/']);
       this.login=`@${this.githubService.user?.login??''}`;
-      console.log(this.githubService.user);
+      
     
   }
   onGetWords(value:string){
-   console.log(value)
+    if(!this.isSearch){
+      this.isSearch=true;
+      forkJoin({
+        user:this.githubService.getUsers(value),
+        repos:this.githubService.getRepos(value)
+      }).subscribe({
+        next:(value:any)=>{
+          this.githubService.user = value.user;
+          this.githubService.repos = value.repos;
+          this.login=`@${this.githubService.user?.login??''}`;
+          this.isSearch=false;
+          
+          
+        },
+        error:(err:any)=>{
+          this.openSnackbar(`Ops! usuário ${value} não encontrado`);
+          
+        }
+  
+      })
+    }
     
+  }
+  openSnackbar(value:string){
+    this.snackBar.open(value);
   }
 
   get user():UserModel {
@@ -59,6 +88,14 @@ export class UserDetailComponent implements OnInit{
   }
   openBlog(value:string) {
     window.open(`https://${value}`, '_blank');
+  }
+  updated(timestamp:string):string{
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+    return `Atualizado há ${diffInDays} dias.`;
   }
 
 }

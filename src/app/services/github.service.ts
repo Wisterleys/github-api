@@ -21,6 +21,6 @@ export class GitHubService extends ServiceBase<any>{
     return super.getAll(`${this.apiUrl}/users/${username}`);
   }
   getRepos(username:string):Observable<GenericResultCommand>{
-    return super.getAll(`${this.apiUrl}/users/${username}/repos`);
+    return super.getAll(`${this.apiUrl}/users/${username}/repos?direction=asc`);
   }
 }

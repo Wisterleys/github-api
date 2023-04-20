@@ -5,5 +5,6 @@ export class ImagePaths {
     static readonly map_pointer = 'assets/img/Navigation-Maps.png';
     static readonly office_work = 'assets/img/office-work-square.png';
     static readonly twitter_icon= 'assets/img/shape.png';
+    static readonly star= 'assets/img/star.png';
   }
   
