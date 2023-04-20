@@ -253,7 +253,7 @@ InputSearchComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE
   features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]],
   decls: 8,
   vars: 3,
-  consts: [[1, "container"], [1, "input-group"], [1, "search-icon"], ["type", "text", "placeholder", "Search", 3, "ngModel", "ngModelChange", "input"], ["mat-raised-button", "", "color", "primary", "class", "custom-button", 3, "click", 4, "ngIf"], [4, "ngIf"], ["mat-raised-button", "", "color", "primary", 1, "custom-button", 3, "click"]],
+  consts: [[1, "container"], [1, "input-group"], [1, "search-icon"], ["type", "text", "placeholder", "Search", 3, "ngModel", "ngModelChange", "blur"], ["mat-raised-button", "", "color", "primary", "class", "custom-button", 3, "click", 4, "ngIf"], [4, "ngIf"], ["mat-raised-button", "", "color", "primary", 1, "custom-button", 3, "click"]],
   template: function InputSearchComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "mat-icon");
@@ -262,7 +262,7 @@ InputSearchComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "input", 3);
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function InputSearchComponent_Template_input_ngModelChange_5_listener($event) {
         return ctx.searchValueInput = $event;
-      })("input", function InputSearchComponent_Template_input_input_5_listener() {
+      })("blur", function InputSearchComponent_Template_input_blur_5_listener() {
         return ctx.valueInputData();
       });
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
@@ -328,6 +328,7 @@ class SearchComponent {
       },
       error: err => {
         this.openSnackbar(`Ops! usuário ${value} não encontrado`);
+        console.log(err);
         this.isLoading = false;
       }
     });
@@ -591,6 +592,7 @@ class UserDetailComponent {
           this.isSearch = false;
         },
         error: err => {
+          console.log(err);
           this.openSnackbar(`Ops! usuário ${value} não encontrado`);
         }
       });
