@@ -10,7 +10,7 @@ import { RepoModel } from '../models/repo.model';
 })
 export class GitHubService extends ServiceBase<any>{
   public user?:UserModel;
-  public repos?:RepoModel;
+  public repos:Array<RepoModel>=[];
   constructor(
     protected override injector: Injector
   ) {

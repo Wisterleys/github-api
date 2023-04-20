@@ -13,7 +13,7 @@ export class SearchComponent {
   isLoading:boolean=false;
   
   constructor(
-    public router:Router,
+    private router:Router,
     private snackBar: MatSnackBar,
     private githubService:GitHubService
   ){}
