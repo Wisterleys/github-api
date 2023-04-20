@@ -388,9 +388,7 @@ function UserDetailComponent_div_25_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](4, "p");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](6, "p");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
   }
   if (rf & 2) {
     const repo_r1 = ctx.$implicit;
@@ -466,7 +464,7 @@ UserDetailComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](21, "section", 7)(22, "section", 8);
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()();
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](23, "main")(24, "section");
-      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](25, UserDetailComponent_div_25_Template, 7, 3, "div", 9);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](25, UserDetailComponent_div_25_Template, 6, 3, "div", 9);
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()();
     }
     if (rf & 2) {
