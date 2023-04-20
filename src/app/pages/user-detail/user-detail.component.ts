@@ -20,7 +20,7 @@ export class UserDetailComponent implements OnInit{
     if(this.githubService.repos==undefined||this.githubService.user==undefined)
       this.router.navigate(['/']);
 
-      console.log(this.githubService.repos);
+      console.log(this.githubService.user);
     
   }
   onGetWords(value:string){

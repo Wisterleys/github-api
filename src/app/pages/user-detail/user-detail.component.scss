@@ -7,6 +7,11 @@
         "sidebar main main";
     grid-template-columns: minmax(0, 1fr) 1fr minmax(0, 1fr); /* colunas responsivas */
     grid-template-rows: 4.3rem 1fr 0px;
+    a{
+      text-decoration: none;
+      color:black
+
+    }
   }
     header {
     grid-area: header;
@@ -28,10 +33,18 @@
 
     main {
         grid-area: main;
+        .content{
+          padding: 10px;
+          margin-left: 20px;
+          border-color: var(---border-dark-color);
+        }
     }
 
     .sidebar {
+      
         grid-area: sidebar;
+        
+        
     }
 
     
@@ -73,13 +86,75 @@
     main {
       grid-area: main;
       grid-row: 3 / -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      section{
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        
+      }
     }
   
     .sidebar {
+      
       grid-area: sidebar;
       grid-row: 2 / 3;
+      
     }
   
    
   }
+  
+  //Profile card
+  mat-card-content{
+    width: 100%;
+    height: 50vh;
+    display: grid;
+    grid-template-areas:
+        "p p p"
+        "desc desc desc"
+        "links links links";
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px auto auto auto 100px;
+
+    .profile{
+      width: 90%;
+      max-width: 90%;
+      overflow: hidden;
+      grid-area: p;
+      grid-row: 1 / 2;
+      display: grid;
+      grid-template-columns: 3fr 8fr;
+      align-items: center; 
+      img {
+        width: 100%;
+        height: auto;
+      }
+      .name{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    
+    .desc{
+      width: 90%;
+      max-width: 90%;
+      grid-area: desc;
+      grid-row: 2 / 3;
+    }
+    .links{
+      width: 90%;
+      max-width: 90%;
+      grid-area: links;
+      grid-row: 3 / -1;
+    }
+  }
+  
   

@@ -15,7 +15,41 @@
 
         </section>
     </header>
-    <nav class="sidebar">Sidebar</nav>
-    <main>Main Content</main>
+    <nav class="sidebar">
+        <mat-card [ngStyle]="{ 'background-color': 'var(---secondary-color)' }">
+            <mat-card-content>
+                <section class="profile">
+                    <div>
+                        <img [src]="user.avatar_url" >
+                    </div>
+                    <div class="name">
+                        <p>
+                            {{user.name}}
+                        </p>
+                        <p>
+                           Descrição...
+                        </p>
+                    </div>
+                    
+
+                </section>
+                <section class="desc">
+
+                </section>
+                <section class="links">
+
+                </section>
+            </mat-card-content>
+        </mat-card>
+    </nav>
+    <main>
+      <section>
+        <div class="content" *ngFor="let repo of repos">
+            <p><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></p>
+            <p>{{repo.description??''}}</p>
+
+        </div>
+      </section>  
+    </main>
 </div>
   
