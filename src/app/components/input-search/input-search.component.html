@@ -5,6 +5,7 @@
         </div>
         <input type="text" placeholder="Search" [(ngModel)]="searchValueInput"/>
     </div>
-    <button mat-raised-button color="primary" class="custom-button" (click)="onGetWords()">Search</button>
+    <button mat-raised-button color="primary" class="custom-button" (click)="onGetWords()" *ngIf="!isLoading">Search</button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 </div>

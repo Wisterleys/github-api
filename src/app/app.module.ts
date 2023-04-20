@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +24,7 @@ import { InputSearchComponent } from './components/input-search/input-search.com
     AppComponent,
     SearchComponent,
     UserDetailComponent,
-    InputSearchComponent
+    InputSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,12 +37,15 @@ import { InputSearchComponent } from './components/input-search/input-search.com
     MatButtonModule,
     MatMenuModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
  
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000,panelClass: ['danger-snackbar']}}
   ],
   bootstrap: [AppComponent]
 })
