@@ -19,8 +19,8 @@
         <mat-card [ngStyle]="{ 'background-color': 'var(---secondary-color)' }">
             <mat-card-content>
                 <section class="profile">
-                    <div>
-                        <img *ngIf="user.avatar_url" [src]="user.avatar_url" >
+                    <div *ngIf="user.avatar_url">
+                        <img [src]="user.avatar_url" >
                     </div>
                     <div class="name">
                         <b>

@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import {forkJoin,Subject,switchMap,debounceTime,of,distinctUntilChanged} from 'rxjs';
 import { RepoModel } from 'src/app/models/repo.model';
 import { UserModel } from 'src/app/models/user.model';
 import { GitHubService } from 'src/app/services/github.service';
@@ -23,6 +23,8 @@ export class UserDetailComponent implements OnInit{
   public map:string = '';//icon
   public email:string = '';//icon
   public star:string = '';//icon
+
+  private subJectSearch: Subject<string> = new Subject<string>();
   constructor(
     public githubService:GitHubService,
     private router:Router,
@@ -38,6 +40,39 @@ export class UserDetailComponent implements OnInit{
   }
 
   ngOnInit(){
+    let userName: string = '';
+    this.subJectSearch.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap((value:string) => {
+        userName = value;
+        console.log(userName)
+        if(value.trim() === ''){
+          return of({user:null,repos:null})
+        }
+        return forkJoin({
+          user:this.githubService.getUsers(value),
+          repos:this.githubService.getRepos(value)
+        });
+    }))
+    .subscribe({
+      next:(value:any)=>{
+        this.githubService.user = value.user;
+        this.githubService.repos = value.repos;
+        this.login=`@${this.githubService.user?.login??''}`;
+        this.isSearch=false;
+        
+        
+      },
+      error:(err:any)=>{
+        console.log(err);
+        this.login=`@${this.githubService.user?.login??''}`;
+        this.isSearch=false;
+        this.openSnackbar(`Ops! usuário ${userName} não encontrado`);
+        
+      }
+
+    });
     if(this.githubService.repos==undefined||this.githubService.user==undefined)
       this.router.navigate(['/']);
       this.login=`@${this.githubService.user?.login??''}`;
@@ -47,25 +82,7 @@ export class UserDetailComponent implements OnInit{
   onGetWords(value:string){
     if(!this.isSearch){
       this.isSearch=true;
-      forkJoin({
-        user:this.githubService.getUsers(value),
-        repos:this.githubService.getRepos(value)
-      }).subscribe({
-        next:(value:any)=>{
-          this.githubService.user = value.user;
-          this.githubService.repos = value.repos;
-          this.login=`@${this.githubService.user?.login??''}`;
-          this.isSearch=false;
-          
-          
-        },
-        error:(err:any)=>{
-          console.log(err);
-          this.openSnackbar(`Ops! usuário ${value} não encontrado`);
-          
-        }
-  
-      })
+      this.subJectSearch.next(value)
     }
     
   }
