@@ -34,7 +34,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/@angular/common/locales/pt.js"
             ]
           },
           "configurations": {
