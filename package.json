@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-c": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build",
     "build-dev": "ng build --configuration development",
     "deploy": "ng build --configuration development --base-href https://wisterleys.github.io/github-api/ && gh-pages -d dist/searchdev",

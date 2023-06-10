@@ -1,4 +1,6 @@
-import { Component, OnInit} from '@angular/core';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { Component, LOCALE_ID, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {forkJoin,Subject,switchMap,debounceTime,of,distinctUntilChanged} from 'rxjs';
@@ -7,10 +9,15 @@ import { UserModel } from 'src/app/models/user.model';
 import { GitHubService } from 'src/app/services/github.service';
 import { ImagePaths } from 'src/app/utils/image_paths';
 
+registerLocaleData(localePt);
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss']
+  styleUrls: ['./user-detail.component.scss'],
+  providers: [
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
+  ],
 })
 export class UserDetailComponent implements OnInit{
  
@@ -23,12 +30,12 @@ export class UserDetailComponent implements OnInit{
   public map:string = '';//icon
   public email:string = '';//icon
   public star:string = '';//icon
-
   private subJectSearch: Subject<string> = new Subject<string>();
   constructor(
     public githubService:GitHubService,
     private router:Router,
     private snackBar: MatSnackBar,
+    private datePipe: DatePipe
   ){
     this.twitter= ImagePaths.twitter_icon;
     this.office= ImagePaths.office_work;
@@ -105,13 +112,54 @@ export class UserDetailComponent implements OnInit{
   openBlog(value:string) {
     window.open(`https://${value}`, '_blank');
   }
-  updated(timestamp:string):string{
+  updated(timestamp: string): string {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  
+    if (diffInDays === 0) {
+      const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+      if (diffInHours === 0) {
+        const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+        return `Atualizado há ${diffInMinutes} minutos.`;
+      }
+      return `Atualizado há ${diffInHours} horas.`;
+    }
+  
+    const weeks = Math.floor(diffInDays / 7);
+    const remainingDays = diffInDays % 7;
+  
+    if (weeks === 0) {
+      return `Atualizado há ${remainingDays} dias.`;
+    } else if (weeks === 1) {
+      return 'Atualizado na última semana.';
+    } else if (weeks === 2) {
+      return 'Atualizado há 2 semanas.';
+    } else if (remainingDays === 0) {
+      return `Atualizado há ${weeks} semanas.`;
+    }
+  
+    const formattedDate = this.datePipe.transform(date, 'MMM d, yyyy');
+    return `Atualizado em ${formattedDate}.`;
+  }
+  /* updated(timestamp: string): string {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  
+    const formattedDate = this.datePipe.transform(date, 'dd/MM/yyyy');
+  
+    return `Atualizado em ${formattedDate}, há ${diffInDays} dias.`;
+  } */
+  /* updated(timestamp:string):string{
     const date = new Date(timestamp);
     const now = new Date();
     const diffInMs = now.getTime() - date.getTime();
     const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 
     return `Atualizado há ${diffInDays} dias.`;
-  }
+  } */
 
 }

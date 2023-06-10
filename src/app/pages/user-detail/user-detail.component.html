@@ -79,8 +79,14 @@
         <div class="content" *ngFor="let repo of repos">
             <p class="repo-title" style="font-size: 20px;"><a href="{{repo.html_url}}" target="_blank" >{{repo.name}}</a></p>
             <p>{{repo.description??''}}</p>
-            <div class="ftitle" style="width: 16rem;display: flex;justify-content: space-around;">
-                <span><img [src]="star" alt="">{{repo.stargazers_count}}</span> <span>{{updated(repo.updated_at)}}</span>
+            <div class="ftitle" style="width: 20rem;display: flex;justify-content: space-around;">
+                <span class="att-info">
+                    <img [src]="star" alt="">
+                    {{repo.stargazers_count}}
+                </span> 
+                <span class="att-info">
+                    {{updated(repo.updated_at)}}
+                </span>
             </div>
 
         </div>
