@@ -40,34 +40,34 @@ export class UserDetailComponent implements OnInit{
   }
 
   ngOnInit(){
-    let userName: string = '';
+    let userName: string = this.githubService.user?.login!;
+    let repoName: string = '';
     this.subJectSearch.pipe(
       debounceTime(1000),
       distinctUntilChanged(),
       switchMap((value:string) => {
-        userName = value;
-        console.log(userName)
-        if(value.trim() === ''){
-          return of({user:null,repos:null})
+        repoName = value;
+        console.log(value)
+        if(value.length === 0){
+          return of(this.githubService.repos)
         }
         return forkJoin({
-          user:this.githubService.getUsers(value),
-          repos:this.githubService.getRepos(value)
+          repos:this.githubService.getRepos(userName)
         });
     }))
     .subscribe({
       next:(value:any)=>{
-        this.githubService.user = value.user;
-        this.githubService.repos = value.repos;
-        this.login=`@${this.githubService.user?.login??''}`;
-        this.isSearch=false;
+        
+        let r = new RegExp(repoName,'i');
+          let filter = value.repos.filter(
+                (repo: RepoModel ) => r.test(repo.name)
+            );
+          this.githubService.repos = filter.length>0?filter:value.repos;
         
         
       },
       error:(err:any)=>{
         console.log(err);
-        this.login=`@${this.githubService.user?.login??''}`;
-        this.isSearch=false;
         this.openSnackbar(`Ops! usuário ${userName} não encontrado`);
         
       }
@@ -79,12 +79,10 @@ export class UserDetailComponent implements OnInit{
       
     
   }
-  onGetWords(value:string){
-    if(!this.isSearch){
-      this.isSearch=true;
+  onGetWords(value:string)
+  {
+    console.log(value)
       this.subJectSearch.next(value)
-    }
-    
   }
   openSnackbar(value:string){
     this.snackBar.open(value);
